@@ -189,6 +189,7 @@ function time() {
         mytimeout = setTimeout(time, 2000);
     }
 }
+
 clearTimeout(mytimeout);
 function startQuiz() {
     clearTimeout(mytimeout); 
@@ -303,7 +304,6 @@ function nextQ(){
         time();
 
     } else {
-        // timer.style.display= 'none';
         clearTimeout(mytimeout);
         startQuiz();
         clearTimeout(mytimeout);
@@ -317,7 +317,7 @@ function nextQ(){
 
 startQuiz();
 
-musictxt.addEventListener('click',changeSrc)
+musictxt.addEventListener('click',changeSrc);
 function changeSrc() {
     console.log(musicSrc);
 
