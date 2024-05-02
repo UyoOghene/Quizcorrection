@@ -138,12 +138,13 @@ function backbtn(){
 
 hallbtn.addEventListener('click',fame);
 
-function saveHighScore(score) {
+function saveHighScore(newScore) {
     const highScores = getHighScores();
-    highScores.push(score);
-    highScores.sort((a, b) => b - a); 
-    highScores.splice(5); 
-    localStorage.setItem('highScores', JSON.stringify(highScores));
+    highScores.push(newScore);
+    highScores.sort((a, b) => b.score - a.score); // Make sure to sort by score now
+    highScores.splice(5); // Keep only the top 5
+    // localStorage.setItem('highScores', JSON.stringify(highScores));
+    localStorage.setItem('highScores', (highScores));
 }
 
 function getHighScores() {
@@ -151,16 +152,30 @@ function getHighScores() {
     return scores ? JSON.parse(scores) : [];
 }
 
+// function displayHighScores() {
+//     const highScores = getHighScores();
+//     console.log(highScores);  
+//     console.log(highScores[0]);
+//     highScore1.innerHTML = 'your top high score is ' + highScores[0] + '/'+ questions.length;
+//     highScore2.innerHTML = highScores[1];
+//     highScore3.innerHTML = highScores[2];
+//     highScore4.innerHTML = highScores[3];
+//     highScore5.innerHTML = highScores[4];
+// }
+// function displayHighScores() {
+//     const highScores = getHighScores();
+//     highScore1.innerHTML = highScores[0].name ,highScores[0].score;
+// }
 function displayHighScores() {
     const highScores = getHighScores();
-    console.log(highScores);  
-    console.log(highScores[0]);
-    highScore1.innerHTML = 'your top high score is ' + highScores[0] + '/'+ questions.length;
-    highScore2.innerHTML = highScores[1];
-    highScore3.innerHTML = highScores[2];
-    highScore4.innerHTML = highScores[3];
-    highScore5.innerHTML = highScores[4];
+    const highScoreElements = [highScore1, highScore2, highScore3, highScore4, highScore5];
+    highScores.forEach((score, index) => {
+        if (highScoreElements[index]) {
+            highScoreElements[index].textContent = `${score.name}: ${score.score}/${questions.length}`;
+        }
+    });
 }
+
 
 function fame() {
     console.log('Hall of Fame');
@@ -262,16 +277,36 @@ function selectAnswer(e){
     next.style.display = 'block';
 }
 
+// function showScore() {
+//     resetState();
+//     clearTimeout(mytimeout);
+//     timer.style.display = 'none';
+//     question.innerHTML = `You scored ${score} out of ${questions.length}!`;
+//     saveHighScore(score);
+    
+//     const hallOfFameBtn = document.createElement('button');
+//     hallOfFameBtn.innerText = 'Hall of Fame';
+//     hallOfFameBtn.classList.add('btn'); // Assuming 'btn' class for styling
+//     hallOfFameBtn.addEventListener('click', fame);
+
+//     next.innerHTML = 'Play Again';
+//     next.style.display = 'block';
+//     quizBox.appendChild(next); 
+//     quizBox.appendChild(hallOfFameBtn); 
+// }
+
 function showScore() {
+    const username = prompt("Enter your username for the leaderboard:");
     resetState();
     clearTimeout(mytimeout);
     timer.style.display = 'none';
     question.innerHTML = `You scored ${score} out of ${questions.length}!`;
-    saveHighScore(score);
-    
+
+    saveHighScore({ score: score, name: username || "Anonymous" }); 
+
     const hallOfFameBtn = document.createElement('button');
     hallOfFameBtn.innerText = 'Hall of Fame';
-    hallOfFameBtn.classList.add('btn'); // Assuming 'btn' class for styling
+    hallOfFameBtn.classList.add('btn');
     hallOfFameBtn.addEventListener('click', fame);
 
     next.innerHTML = 'Play Again';
@@ -279,6 +314,7 @@ function showScore() {
     quizBox.appendChild(next); 
     quizBox.appendChild(hallOfFameBtn); 
 }
+
 
 function handleNxtbtn() {
     currentQuestionIndex++;
