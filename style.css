@@ -55,9 +55,9 @@ body{
 }
 .quizbox{
     background-color:black ;
-    border: solid yellow;
+    border: solid blueviolet;
     border-radius: 10px;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -207,25 +207,14 @@ h2{
         line-height: 1em;
     
     }
-    .music{
-        width: 5em;
-        height: 5em;
-        display: flex;
-        flex-direction: column ;
-        /* justify-content: center; */
-        align-items: center;
-        margin: 10px;
-    
-    }
     
     
     #musictxt{
         color: black;
         border: 5px solid white;
         border-radius: 20px;
-        margin-top: 10px;
+        margin: 0;
         background-color: aliceblue;
-        width: 7em;
     }
     
       
