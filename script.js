@@ -60,34 +60,53 @@ function selectQuestions(){
     const selectedQuestions = questions.slice(0, 5);
     questions.splice(0, questions.length, ...selectedQuestions);
 }
-
+let currentQuestion = questions[currentQuestionIndex];
 function showQuestion(){  
     console.log('hello');
     // removeAnswerBtns();
-    let currentQuestion = questions[currentQuestionIndex];
     console.log(currentQuestion.answers);
     // let questionNo = currentQuestionIndex +1;
     question.innerHTML = currentQuestion.question;
     currentQuestion.answers.forEach(function(currentAnswer){
         console.log(currentAnswer.text);
-        // `<button class="btnans">hi</button>`
         const ansbtn = document.createElement('button');
         ansbtn.setAttribute('correct', currentAnswer.correct);
         ansbtn.innerText = currentAnswer.text;
         answerButtons.appendChild(ansbtn);
-        checkCorrectAns();
+        let trueorfalse = ansbtn.getAttribute('correct')
+        ansbtn.addEventListener('click',function checkCorrectAns(){
+            if(trueorfalse === 'true'){
+                console.log('right')
+            }else{
+                console.log('wrong');
+            }
+            ansbtn.disabled = true;
+        })
+        // checkCorrectAns();
 
     } )
 
-    function checkCorrectAns(){
-        Array.from(answerButtons.children).forEach(button => {
-            if (button.dataset.correct === 'true') {
-                button.classList.add('correct');
-            }
-            button.disabled = true;
-        });
+    // function checkCorrectAns(){
+    //     console.log('aaa')
+    //     console.log(currentQuestion.answers)
+    //     // currentQuestion.answers.forEach(function(currAns){
+    //     // })
+
+    //     Array.from(answerButtons.children).forEach(button => {
+    //         if(button.correct === 'true'){
+    //             console.log('right');
+
+    //         }else{
+    //             console.log('wrong')
+    //         }
+
+    //         // if (button.dataset.correct === 'true') {
+    //         //     button.classList.add('correct');
+    //         // }
+    //         // button.disabled = true;
+    //     });
     
-    }
+    // }
     
 
     // currentQuestion.answers.forEach(answer => {
@@ -206,26 +225,26 @@ function showQuestion(){
 //     }, 1000);
 // }
 function startTimer() {
-    console.log('start');
+    // console.log('start');
     myInterval1 = setInterval(myTimerFunc, 1000);
     console.log('mystart interval' + " " + myInterval1);
 } 
 
 function myTimerFunc() {
     timer.innerHTML = 'Time left:' + time1 + 's';
-    console.log('tick' + ' ' + myInterval1);
+    // console.log('tick' + ' ' + myInterval1);
 
     if(time1 === 0) {
         timer.innerHTML = 'Oops! Time\'s up'; 
-        console.log('autostop interval' + " " + myInterval1);
+        // console.log('autostop interval' + " " + myInterval1);
         clearInterval(myInterval1);
     }
         time1--; 
 }
 
 function stopTimer() { 
-    console.log('stop');
-    console.log('my stop interval' + " " + myInterval1);
+    // console.log('stop');
+    // console.log('my stop interval' + " " + myInterval1);
     clearInterval(myInterval1);
 } 
 
