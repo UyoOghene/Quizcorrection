@@ -1,4 +1,5 @@
 import questions from "./questions.js";
+console.log(questions)
 const startBtn = document.getElementById('start');
 const answerButtons = document.getElementById('answer-buttons');
 const quizQuestions = document.querySelector('.quizquestions');
@@ -26,7 +27,9 @@ const playagainBtn = document.querySelector('#playagainbtn');
 
 let score = 0;
 let currentQuestionIndex = 0;
-let countdown = 10;
+let myInterval1;
+let time1 = 10;
+
 startBtn.addEventListener('click', startQuiz);
 // hallInput.addEventListener('keydown', showInputValue2);
 // backButton.addEventListener('click',backbtn);
@@ -37,11 +40,12 @@ startBtn.addEventListener('click', startQuiz);
 // musictxt.addEventListener('click', changeSrc);
 
 function startQuiz() {
-    let intervalId = setInterval(time, 1000);// let mytimeout = setTimeout(time, 1000);
+    
     startPage.style.display = "none";
     quizBox.style.display = "block";
     quizQuestions.style.display = 'block';
-    time(intervalId);
+    startTimer();
+    questionnum.innerHTML = `Question ${currentQuestionIndex} of 5 shuffled from 10`;
     // currentQuestionIndex = 0;
     // score = 0;
     selectQuestions();
@@ -52,9 +56,52 @@ function startQuiz() {
 
 function selectQuestions(){
     questions.sort(() => Math.random() - 0.5);
+    console.log(questions);
     const selectedQuestions = questions.slice(0, 5);
     questions.splice(0, questions.length, ...selectedQuestions);
+}
 
+function showQuestion(){  
+    console.log('hello');
+    // removeAnswerBtns();
+    let currentQuestion = questions[currentQuestionIndex];
+    console.log(currentQuestion.answers);
+    // let questionNo = currentQuestionIndex +1;
+    question.innerHTML = currentQuestion.question;
+    currentQuestion.answers.forEach(function(currentAnswer){
+        console.log(currentAnswer.text);
+        // `<button class="btnans">hi</button>`
+        const ansbtn = document.createElement('button');
+        ansbtn.setAttribute('correct', currentAnswer.correct);
+        ansbtn.innerText = currentAnswer.text;
+        answerButtons.appendChild(ansbtn);
+        checkCorrectAns();
+
+    } )
+
+    function checkCorrectAns(){
+        Array.from(answerButtons.children).forEach(button => {
+            if (button.dataset.correct === 'true') {
+                button.classList.add('correct');
+            }
+            button.disabled = true;
+        });
+    
+    }
+    
+
+    // currentQuestion.answers.forEach(answer => {
+    //     const button = document.createElement('button');
+    //     button.innerHTML = answer.text;
+    //     button.classList.add('btn');
+    //     answerButtons.appendChild(button);
+    //     if(answer.correct){
+    //         button.dataset.correct =answer.correct;
+    //         // clearTimeout(mytimeout);
+    //     }
+    // button.addEventListener('click',selectAnswer);
+    // });
+    // next.style.display = 'none';
 }
 
 // function backbtn(){
@@ -139,49 +186,64 @@ function selectQuestions(){
 //     }
 // }
 
-function times(){
-     intervalId = setInterval(() => {
-        timer.innerHTML = 'Time left:' + countdown + 's';
-        console.log('tick');
-        if (countdown === 0) {
-            Array.from(answerButtons.children).forEach(button => {
-                if (button.dataset.correct === 'true') {
-                    button.classList.add('correct');
-                }
-                button.disabled = true;
-            });
-            next.style.display = 'block';
-            timer.innerHTML = 'Oops! Time\'s up'; 
-            clearInterval(intervalId);
-        } else {
-            countdown--;
-        }
-    }, 1000);
-}
+// function times(){
+//      intervalId = setInterval(() => {
+//         timer.innerHTML = 'Time left:' + countdown + 's';
+//         console.log('tick');
+//         if (countdown === 0) {
+//             Array.from(answerButtons.children).forEach(button => {
+//                 if (button.dataset.correct === 'true') {
+//                     button.classList.add('correct');
+//                 }
+//                 button.disabled = true;
+//             });
+//             next.style.display = 'block';
+//             timer.innerHTML = 'Oops! Time\'s up'; 
+//             clearInterval(intervalId);
+//         } else {
+//             countdown--;
+//         }
+//     }, 1000);
+// }
+function startTimer() {
+    console.log('start');
+    myInterval1 = setInterval(myTimerFunc, 1000);
+    console.log('mystart interval' + " " + myInterval1);
+} 
 
-function time(intervalId){
-    timer.innerHTML = 'Time left:' + countdown + 's';
+function myTimerFunc() {
+    timer.innerHTML = 'Time left:' + time1 + 's';
+    console.log('tick' + ' ' + myInterval1);
 
-    console.log('tick')
-    if (countdown === 0) {
-        clearInterval(intervalId);
+    if(time1 === 0) {
         timer.innerHTML = 'Oops! Time\'s up'; 
-        checkCorrectAns();
-        next.style.display = 'block';
-    } else {
-        countdown--;
+        console.log('autostop interval' + " " + myInterval1);
+        clearInterval(myInterval1);
     }
+        time1--; 
 }
 
-function checkCorrectAns(){
-    Array.from(answerButtons.children).forEach(button => {
-        if (button.dataset.correct === 'true') {
-            button.classList.add('correct');
-        }
-        button.disabled = true;
-    });
+function stopTimer() { 
+    console.log('stop');
+    console.log('my stop interval' + " " + myInterval1);
+    clearInterval(myInterval1);
+} 
 
-}
+
+// function time(intervalId){
+//     timer.innerHTML = 'Time left:' + countdown + 's';
+
+//     console.log('tick')
+//     if (countdown === 0) {
+//         clearInterval(intervalId);
+//         timer.innerHTML = 'Oops! Time\'s up'; 
+//         checkCorrectAns();
+//         next.style.display = 'block';
+//     } else {
+//         countdown--;
+//     }
+// }
+
 // function showInputValue2(e){
 //         if (e.key === 'Enter') {
 //             hallInput.style.display = 'none';
@@ -190,31 +252,6 @@ function checkCorrectAns(){
 
 //     }
     
-function showQuestion(){  
-    // clearTimeout(mytimeout);
-    // clearInterval(intervalId);
-    console.log('hello');
-    // removeAnswerBtns();
-    // countdown = 10;
-    // time();
-    // let currentQuestion =questions[currentQuestionIndex];
-    // let questionNo = currentQuestionIndex +1;
-    // questionnum.innerHTML ='Question' + ' ' + questionNo + ' ' + 'out of 5 shuffled from 10';
-    // question.innerHTML =questionNo +'. '+ currentQuestion.question;
-
-    // currentQuestion.answers.forEach(answer => {
-    //     const button = document.createElement('button');
-    //     button.innerHTML = answer.text;
-    //     button.classList.add('btn');
-    //     answerButtons.appendChild(button);
-    //     if(answer.correct){
-    //         button.dataset.correct =answer.correct;
-    //         // clearTimeout(mytimeout);
-    //     }
-    // button.addEventListener('click',selectAnswer);
-    // });
-    // next.style.display = 'none';
-}
 
 // function removeAnswerBtns(){
 //     while(answerButtons.firstChild){
