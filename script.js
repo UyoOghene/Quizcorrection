@@ -75,16 +75,26 @@ function showQuestion(){
         answerButtons.appendChild(ansbtn);
         let trueorfalse = ansbtn.getAttribute('correct')
         ansbtn.addEventListener('click',function checkCorrectAns(){
+                    Array.from(answerButtons.children).forEach(button => {
+                        if (button.getAttribute('correct') === 'true') {
+                            button.classList.add('correct');            
+                        button.disabled = true;
+                        }
+                    })  
+
+            stopTimer();
             if(trueorfalse === 'true'){
                 console.log('right')
+                ansbtn.classList.add('correct');
             }else{
                 console.log('wrong');
+                ansbtn.classList.add('incorrect');
+
             }
-            ansbtn.disabled = true;
         })
-        // checkCorrectAns();
 
     } )
+}
 
     // function checkCorrectAns(){
     //     console.log('aaa')
@@ -121,7 +131,7 @@ function showQuestion(){
     // button.addEventListener('click',selectAnswer);
     // });
     // next.style.display = 'none';
-}
+
 
 // function backbtn(){
 //     console.log('back');
@@ -225,43 +235,31 @@ function showQuestion(){
 //     }, 1000);
 // }
 function startTimer() {
-    // console.log('start');
     myInterval1 = setInterval(myTimerFunc, 1000);
-    console.log('mystart interval' + " " + myInterval1);
 } 
 
 function myTimerFunc() {
     timer.innerHTML = 'Time left:' + time1 + 's';
-    // console.log('tick' + ' ' + myInterval1);
-
     if(time1 === 0) {
+        Array.from(answerButtons.children).forEach(button => {
+            if (button.getAttribute('correct') === 'true') {
+                button.classList.add('correct');
+            }
+            button.disabled = true;
+        });
+
         timer.innerHTML = 'Oops! Time\'s up'; 
-        // console.log('autostop interval' + " " + myInterval1);
         clearInterval(myInterval1);
+
     }
         time1--; 
 }
 
 function stopTimer() { 
-    // console.log('stop');
-    // console.log('my stop interval' + " " + myInterval1);
     clearInterval(myInterval1);
 } 
 
 
-// function time(intervalId){
-//     timer.innerHTML = 'Time left:' + countdown + 's';
-
-//     console.log('tick')
-//     if (countdown === 0) {
-//         clearInterval(intervalId);
-//         timer.innerHTML = 'Oops! Time\'s up'; 
-//         checkCorrectAns();
-//         next.style.display = 'block';
-//     } else {
-//         countdown--;
-//     }
-// }
 
 // function showInputValue2(e){
 //         if (e.key === 'Enter') {
