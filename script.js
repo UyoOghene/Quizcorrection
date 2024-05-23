@@ -1,9 +1,8 @@
 import questions from "./questions.js";
-console.log(questions)
 const startBtn = document.getElementById('start');
 const answerButtons = document.getElementById('answer-buttons');
 const quizQuestions = document.querySelector('.quizquestions');
-const question = document.getElementById('question');
+const questionTxt = document.getElementById('question-text');
 const questionnum = document.querySelector('.question-num')
 const next = document.getElementById('next');
 const presentScore= document.getElementById('presentScore');
@@ -25,7 +24,7 @@ const hallInput = document.querySelector('#hallinput');
 const inputBtn = document.querySelector('#inputBtn');
 const playagainBtn = document.querySelector('#playagainbtn');
 
-let score = 0;
+// let score = 0;
 let currentQuestionIndex = 0;
 let myInterval1;
 let time1 = 10;
@@ -40,6 +39,10 @@ next.addEventListener('click', nextQ);
 // musictxt.addEventListener('click', changeSrc);
 
 function startQuiz() {
+    console.log(questions[currentQuestionIndex].question)
+    console.log()
+    console.log('n')
+
     currentQuestionIndex =0 ;
     startPage.style.display = "none";
     quizBox.style.display = "block";
@@ -59,15 +62,19 @@ function selectQuestions(){
     const selectedQuestions = questions.slice(0, 5);
     questions.splice(0, questions.length, ...selectedQuestions);
 }
-
+let questionN = questions[currentQuestionIndex].question;
+let answerN = questions[currentQuestionIndex].answers;
 
 function showQuestion(){ 
     // next.style.display = ''
-    let currentQuestion = questions[currentQuestionIndex];
+
+    // let currentQuestion = questions[currentQuestionIndex];
+    // let currentquesAns = questions[currentQuestionIndex].answers;
+
     removeAnswerBtns();
     questionnum.innerHTML = `Question ${currentQuestionIndex+1} of 5 shuffled from 10`;
-    question.innerHTML = currentQuestion.question;
-    currentQuestion.answers.forEach(function(currentAnswer){
+    questionTxt.innerHTML = questionN;
+    answerN.forEach(function(currentAnswer){
         console.log(currentAnswer.text);
         const ansbtn = document.createElement('button');
         ansbtn.setAttribute('correct', currentAnswer.correct);
@@ -195,43 +202,7 @@ function showQuestion(){
 //     displayHighScores();
 // } 
 
-// function time() {
-//     timer.innerHTML = 'Time left:' + countdown + 's';
-//     countdown -= 1; 
-//     if (countdown < 0) {
-//         timer.innerHTML = 'Oops! Time\'s up'; 
-//         Array.from(answerButtons.children).forEach(button => {
-//             if (button.dataset.correct === 'true') {
-//                 button.classList.add('correct');
-//             }
-//             button.disabled = true;
-//         });
-//         next.style.display = 'block';
-//     } else {
-//        let mytimeout = setTimeout(time, 1000);
-//         // mytimeout;
-//     }
-// }
 
-// function times(){
-//      intervalId = setInterval(() => {
-//         timer.innerHTML = 'Time left:' + countdown + 's';
-//         console.log('tick');
-//         if (countdown === 0) {
-//             Array.from(answerButtons.children).forEach(button => {
-//                 if (button.dataset.correct === 'true') {
-//                     button.classList.add('correct');
-//                 }
-//                 button.disabled = true;
-//             });
-//             next.style.display = 'block';
-//             timer.innerHTML = 'Oops! Time\'s up'; 
-//             clearInterval(intervalId);
-//         } else {
-//             countdown--;
-//         }
-//     }, 1000);
-// }
 function startTimer() {
     time1=10;
     myInterval1 = setInterval(myTimerFunc, 1000);
@@ -298,7 +269,8 @@ function removeAnswerBtns(){
 // }
      
 // function showScore() {
-//     quizQuestions.style.display = 'none';
+//     console.log('showscore');
+//     quizBox.style.display = 'none';
 //     inputBtn.style.display = 'block';
 //     const totalScore = document.createElement('h1');
 //     totalScore.setAttribute('id', 'total-score');
@@ -324,9 +296,7 @@ function handleNxtbtn() {
     if (currentQuestionIndex <= questions.length-1) {
         currentQuestionIndex++;
         console.log(currentQuestionIndex);
-            next.style.display = 'none';
-
-        // clearTimeout(mytimeout);
+        next.style.display = 'none';
         showQuestion();
         startTimer();
 
@@ -335,22 +305,19 @@ function handleNxtbtn() {
     //     timer.style.display= 'none';
     //     clearTimeout(mytimeout);
     //     console.log('quiz end')
-    //     showScore();
     }
 }
 
 function nextQ(){
-    // stopTimer()
     startTimer();
     timer.innerHTML = '';
-    presentScore.innerHTML = score;
+    // presentScore.innerHTML = score;
     if (currentQuestionIndex <= questions.length-1) {
         handleNxtbtn();
-        // time1 = 10;
-        // startTimer();
-
     } else {
-        startQuiz();
+        stopTimer();
+        // showScore();
+        // startQuiz();
         // timer.style.display='block';
         // countdown = 10;
         // time1();
