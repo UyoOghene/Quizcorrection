@@ -24,7 +24,7 @@ const hallInput = document.querySelector('#hallinput');
 const inputBtn = document.querySelector('#inputBtn');
 const playagainBtn = document.querySelector('#playagainbtn');
 
-// let score = 0;
+let score = 0;
 let currentQuestionIndex = 0;
 let myInterval1;
 let time1 = 10;
@@ -49,7 +49,7 @@ function startQuiz() {
     quizQuestions.style.display = 'block';
     startTimer();
     questionnum.innerHTML = `Question ${currentQuestionIndex + 1} of 5 shuffled from 10`;
-    // score = 0;
+    score = 0;
     selectQuestions();
     // presentScore.innerHTML = 0;
     // next.innerHTML = 'Next';
@@ -64,6 +64,7 @@ function selectQuestions(){
 }
 
 function showQuestion(){ 
+    console.log(score + 'score')
     // next.style.display = ''
 
     let currentQuestion = questions[currentQuestionIndex];
@@ -81,7 +82,8 @@ function showQuestion(){
         ansbtn.addEventListener('click',function checkCorrectAns(){
             Array.from(answerButtons.children).forEach(button => {
                 if (button.getAttribute('correct') === 'true') {
-                    button.classList.add('correct');            
+                    button.classList.add('correct'); 
+                    score +1;           
                 button.disabled = true;
                 next.style.display = 'block'
                 }
@@ -89,6 +91,8 @@ function showQuestion(){
             stopTimer();
             if(trueorfalse === 'true'){
                 ansbtn.classList.add('correct');
+                answerButtons.disabled = true;
+                score +1;
             }else{
                 ansbtn.classList.add('incorrect');
 
@@ -265,26 +269,26 @@ function removeAnswerBtns(){
 //     next.style.display = 'block';
 // }
      
-// function showScore() {
-//     console.log('showscore');
-//     quizBox.style.display = 'none';
-//     inputBtn.style.display = 'block';
-//     const totalScore = document.createElement('h1');
-//     totalScore.setAttribute('id', 'total-score');
-//     quizBox.appendChild(totalScore);
-//     totalScore.innerHTML = `You scored ${score} out of ${questions.length}!`;
-//     if (!document.getElementById('hall-of-fame-btn')) {
-//         const hallOfFameBtn = document.createElement('button');
-//         hallOfFameBtn.setAttribute('id', 'hall-of-fame-btn');  // Add an ID to the button
-//         hallOfFameBtn.innerText = 'Hall of Fame';
-//         hallOfFameBtn.classList.add('btn');
-//         hallOfFameBtn.addEventListener('click', fame);
-//         quizBox.appendChild(hallOfFameBtn);
-//     }
-//     playagainBtn.style.display = 'block';
-//     next.style.display = 'none';
-//     quizBox.appendChild(next);
-// }
+function showScore() {
+    console.log('showscore');
+    quizQuestions.style.display = 'none';
+    // inputBtn.style.display = 'block';
+    // const totalScore = document.createElement('h1');
+    // totalScore.setAttribute('id', 'total-score');
+    // quizBox.appendChild(totalScore);
+    // totalScore.innerHTML = `You scored ${score} out of ${questions.length}!`;
+    // if (!document.getElementById('hall-of-fame-btn')) {
+    //     const hallOfFameBtn = document.createElement('button');
+    //     hallOfFameBtn.setAttribute('id', 'hall-of-fame-btn');  // Add an ID to the button
+    //     hallOfFameBtn.innerText = 'Hall of Fame';
+    //     hallOfFameBtn.classList.add('btn');
+    //     hallOfFameBtn.addEventListener('click', fame);
+    //     quizBox.appendChild(hallOfFameBtn);
+    // }
+    // playagainBtn.style.display = 'block';
+    // next.style.display = 'none';
+    // quizBox.appendChild(next);
+}
 
 function handleNxtbtn() {
     console.log(currentQuestionIndex);
@@ -297,7 +301,8 @@ function handleNxtbtn() {
         showQuestion();
         startTimer();
 
-    // } else {
+    } else {
+        showScore();
     //     hallInput.style.display = 'block';
     //     timer.style.display= 'none';
     //     clearTimeout(mytimeout);
@@ -312,7 +317,6 @@ function nextQ(){
     if (currentQuestionIndex <= questions.length-1) {
         handleNxtbtn();
     } else {
-        // showScore();
         // startQuiz();
         // timer.style.display='block';
         // countdown = 10;
