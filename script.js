@@ -35,18 +35,19 @@ startBtn.addEventListener('click', startQuiz);
 // backButton.addEventListener('click',backbtn);
 // playagainBtn.addEventListener('click',playAgain);
 // hallbtn.addEventListener('click', fame);
-// next.addEventListener('click', nextQ);
+next.addEventListener('click', nextQ);
 // inputBtn.addEventListener('click', saveHighScore);
 // musictxt.addEventListener('click', changeSrc);
 
 function startQuiz() {
-    
+    currentQuestionIndex =0 ;
+
+    next.style.display = 'none'
     startPage.style.display = "none";
     quizBox.style.display = "block";
     quizQuestions.style.display = 'block';
     startTimer();
-    questionnum.innerHTML = `Question ${currentQuestionIndex} of 5 shuffled from 10`;
-    // currentQuestionIndex = 0;
+    questionnum.innerHTML = `Question ${currentQuestionIndex + 1} of 5 shuffled from 10`;
     // score = 0;
     selectQuestions();
     // presentScore.innerHTML = 0;
@@ -60,12 +61,12 @@ function selectQuestions(){
     const selectedQuestions = questions.slice(0, 5);
     questions.splice(0, questions.length, ...selectedQuestions);
 }
-let currentQuestion = questions[currentQuestionIndex];
-function showQuestion(){  
-    console.log('hello');
-    // removeAnswerBtns();
-    console.log(currentQuestion.answers);
-    // let questionNo = currentQuestionIndex +1;
+
+
+function showQuestion(){ 
+    let currentQuestion = questions[currentQuestionIndex];
+    removeAnswerBtns();
+    questionnum.innerHTML = `Question ${currentQuestionIndex+1} of 5 shuffled from 10`;
     question.innerHTML = currentQuestion.question;
     currentQuestion.answers.forEach(function(currentAnswer){
         console.log(currentAnswer.text);
@@ -75,24 +76,21 @@ function showQuestion(){
         answerButtons.appendChild(ansbtn);
         let trueorfalse = ansbtn.getAttribute('correct')
         ansbtn.addEventListener('click',function checkCorrectAns(){
-                    Array.from(answerButtons.children).forEach(button => {
-                        if (button.getAttribute('correct') === 'true') {
-                            button.classList.add('correct');            
-                        button.disabled = true;
-                        }
-                    })  
-
+            Array.from(answerButtons.children).forEach(button => {
+                if (button.getAttribute('correct') === 'true') {
+                    button.classList.add('correct');            
+                button.disabled = true;
+                next.style.display = 'block'
+                }
+            })  
             stopTimer();
             if(trueorfalse === 'true'){
-                console.log('right')
                 ansbtn.classList.add('correct');
             }else{
-                console.log('wrong');
                 ansbtn.classList.add('incorrect');
 
             }
         })
-
     } )
 }
 
@@ -131,7 +129,7 @@ function showQuestion(){
     // button.addEventListener('click',selectAnswer);
     // });
     // next.style.display = 'none';
-
+// }
 
 // function backbtn(){
 //     console.log('back');
@@ -245,6 +243,7 @@ function myTimerFunc() {
             if (button.getAttribute('correct') === 'true') {
                 button.classList.add('correct');
             }
+            next.style.display = 'block'
             button.disabled = true;
         });
 
@@ -270,11 +269,11 @@ function stopTimer() {
 //     }
     
 
-// function removeAnswerBtns(){
-//     while(answerButtons.firstChild){
-//         answerButtons.removeChild(answerButtons.firstChild)
-//     }
-// }
+// previously resetstate()
+function removeAnswerBtns(){ 
+        Array.from(answerButtons.children).forEach(child => answerButtons.removeChild(child));
+    
+    }
 
 // function selectAnswer(e){
 //     const selectedBtn = e.target;
@@ -317,39 +316,41 @@ function stopTimer() {
 //     quizBox.appendChild(next);
 // }
 
-// function handleNxtbtn() {
-//     currentQuestionIndex++;
-//     if (currentQuestionIndex < questions.length) {
-//         clearTimeout(mytimeout);
-//         showQuestion();
-//     } else {
-//         hallInput.style.display = 'block';
-//         timer.style.display= 'none';
-//         clearTimeout(mytimeout);
-//         console.log('quiz end')
-//         showScore();
-//     }
-// }
+function handleNxtbtn() {
+    console.log(currentQuestionIndex);
 
-// function nextQ(){
-//     clearTimeout(mytimeout);
-//     timer.innerHTML = '';
-//     presentScore.innerHTML = score;
-//     if (currentQuestionIndex < questions.length) {
-//         handleNxtbtn();
-//         countdown = 10;
-//         time();
+    if (currentQuestionIndex <= questions.length-1) {
+        currentQuestionIndex++;
+        console.log(currentQuestionIndex);
 
-//     } else {
-//         clearTimeout(mytimeout);
-//         startQuiz();
-//         clearTimeout(mytimeout);
-//         timer.style.display='block';
-//         countdown = 10;
-//         time();
+        // clearTimeout(mytimeout);
+        showQuestion();
+    // } else {
+    //     hallInput.style.display = 'block';
+    //     timer.style.display= 'none';
+    //     clearTimeout(mytimeout);
+    //     console.log('quiz end')
+    //     showScore();
+    }
+}
+
+function nextQ(){
+    clearInterval(myInterval1);
+    timer.innerHTML = '';
+    presentScore.innerHTML = score;
+    if (currentQuestionIndex <= questions.length-1) {
+        handleNxtbtn();
+        // time1 = 10;
+        // startTimer();
+
+    } else {
+        startQuiz();
+        // timer.style.display='block';
+        // countdown = 10;
+        // time1();
     
-//     }
-// }
+    }
+}
 
 // function changeSrc() {
 //     console.log(musicSrc);
