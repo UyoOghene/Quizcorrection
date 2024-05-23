@@ -49,7 +49,7 @@ function startQuiz() {
     quizQuestions.style.display = 'block';
     startTimer();
     questionnum.innerHTML = `Question ${currentQuestionIndex + 1} of 5 shuffled from 10`;
-    score = 0;
+    // score = 0;
     selectQuestions();
     // presentScore.innerHTML = 0;
     // next.innerHTML = 'Next';
@@ -66,11 +66,11 @@ function selectQuestions(){
 function showQuestion(){ 
     console.log(score + 'score')
     // next.style.display = ''
-
     let currentQuestion = questions[currentQuestionIndex];
-    
     removeAnswerBtns();
     questionnum.innerHTML = `Question ${currentQuestionIndex+1} of 5 shuffled from 10`;
+        presentScore.innerHTML = score;
+
     questionTxt.innerHTML = currentQuestion.question;
     currentQuestion.answers.forEach(function(currentAnswer){
         console.log(currentAnswer.text);
@@ -83,7 +83,6 @@ function showQuestion(){
             Array.from(answerButtons.children).forEach(button => {
                 if (button.getAttribute('correct') === 'true') {
                     button.classList.add('correct'); 
-                    score +1;           
                 button.disabled = true;
                 next.style.display = 'block'
                 }
@@ -92,7 +91,7 @@ function showQuestion(){
             if(trueorfalse === 'true'){
                 ansbtn.classList.add('correct');
                 answerButtons.disabled = true;
-                score +1;
+                score ++;
             }else{
                 ansbtn.classList.add('incorrect');
 
