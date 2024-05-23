@@ -62,19 +62,16 @@ function selectQuestions(){
     const selectedQuestions = questions.slice(0, 5);
     questions.splice(0, questions.length, ...selectedQuestions);
 }
-let questionN = questions[currentQuestionIndex].question;
-let answerN = questions[currentQuestionIndex].answers;
 
 function showQuestion(){ 
     // next.style.display = ''
 
-    // let currentQuestion = questions[currentQuestionIndex];
-    // let currentquesAns = questions[currentQuestionIndex].answers;
-
+    let currentQuestion = questions[currentQuestionIndex];
+    
     removeAnswerBtns();
     questionnum.innerHTML = `Question ${currentQuestionIndex+1} of 5 shuffled from 10`;
-    questionTxt.innerHTML = questionN;
-    answerN.forEach(function(currentAnswer){
+    questionTxt.innerHTML = currentQuestion.question;
+    currentQuestion.answers.forEach(function(currentAnswer){
         console.log(currentAnswer.text);
         const ansbtn = document.createElement('button');
         ansbtn.setAttribute('correct', currentAnswer.correct);
@@ -293,7 +290,7 @@ function handleNxtbtn() {
     console.log(currentQuestionIndex);
     stopTimer();
 
-    if (currentQuestionIndex <= questions.length-1) {
+    if (currentQuestionIndex < questions.length-1) {
         currentQuestionIndex++;
         console.log(currentQuestionIndex);
         next.style.display = 'none';
@@ -315,7 +312,6 @@ function nextQ(){
     if (currentQuestionIndex <= questions.length-1) {
         handleNxtbtn();
     } else {
-        stopTimer();
         // showScore();
         // startQuiz();
         // timer.style.display='block';
