@@ -41,8 +41,6 @@ next.addEventListener('click', nextQ);
 
 function startQuiz() {
     currentQuestionIndex =0 ;
-
-    next.style.display = 'none'
     startPage.style.display = "none";
     quizBox.style.display = "block";
     quizQuestions.style.display = 'block';
@@ -64,6 +62,7 @@ function selectQuestions(){
 
 
 function showQuestion(){ 
+    // next.style.display = ''
     let currentQuestion = questions[currentQuestionIndex];
     removeAnswerBtns();
     questionnum.innerHTML = `Question ${currentQuestionIndex+1} of 5 shuffled from 10`;
@@ -92,6 +91,7 @@ function showQuestion(){
             }
         })
     } )
+
 }
 
     // function checkCorrectAns(){
@@ -233,6 +233,7 @@ function showQuestion(){
 //     }, 1000);
 // }
 function startTimer() {
+    time1=10;
     myInterval1 = setInterval(myTimerFunc, 1000);
 } 
 
@@ -318,13 +319,17 @@ function removeAnswerBtns(){
 
 function handleNxtbtn() {
     console.log(currentQuestionIndex);
+    stopTimer();
 
     if (currentQuestionIndex <= questions.length-1) {
         currentQuestionIndex++;
         console.log(currentQuestionIndex);
+            next.style.display = 'none';
 
         // clearTimeout(mytimeout);
         showQuestion();
+        startTimer();
+
     // } else {
     //     hallInput.style.display = 'block';
     //     timer.style.display= 'none';
@@ -335,7 +340,8 @@ function handleNxtbtn() {
 }
 
 function nextQ(){
-    clearInterval(myInterval1);
+    // stopTimer()
+    startTimer();
     timer.innerHTML = '';
     presentScore.innerHTML = score;
     if (currentQuestionIndex <= questions.length-1) {
