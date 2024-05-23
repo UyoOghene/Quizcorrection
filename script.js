@@ -39,20 +39,13 @@ next.addEventListener('click', nextQ);
 // musictxt.addEventListener('click', changeSrc);
 
 function startQuiz() {
-    console.log(questions[currentQuestionIndex].question)
-    console.log()
-    console.log('n')
-
     currentQuestionIndex =0 ;
     startPage.style.display = "none";
     quizBox.style.display = "block";
     quizQuestions.style.display = 'block';
     startTimer();
     questionnum.innerHTML = `Question ${currentQuestionIndex + 1} of 5 shuffled from 10`;
-    // score = 0;
     selectQuestions();
-    // presentScore.innerHTML = 0;
-    // next.innerHTML = 'Next';
     showQuestion();
 }
 
@@ -272,10 +265,10 @@ function showScore() {
     console.log('showscore');
     quizQuestions.style.display = 'none';
     // inputBtn.style.display = 'block';
-    // const totalScore = document.createElement('h1');
-    // totalScore.setAttribute('id', 'total-score');
-    // quizBox.appendChild(totalScore);
-    // totalScore.innerHTML = `You scored ${score} out of ${questions.length}!`;
+    const totalScore = document.createElement('h1');
+    totalScore.setAttribute('id', 'total-score');
+    quizBox.appendChild(totalScore);
+    totalScore.innerHTML = `You scored ${score} out of ${questions.length}!`;
     // if (!document.getElementById('hall-of-fame-btn')) {
     //     const hallOfFameBtn = document.createElement('button');
     //     hallOfFameBtn.setAttribute('id', 'hall-of-fame-btn');  // Add an ID to the button
