@@ -151,49 +151,49 @@ function showQuestion(){
 //     playagainBtn.style.display = 'none';
 // }
 
-// function saveHighScore() {
-//     let highScoreName = hallInput.value.trim();
-//     if (highScoreName) {
-//         const highScores = getHighScores();
-//         highScores.push({ name: highScoreName, score: score });
-//         highScores.sort((a, b) => b.score - a.score);
-//         highScores.splice(5);   
-//         localStorage.setItem('highScores', JSON.stringify(highScores));
-//         displayHighScores();
-//     }
+function saveHighScore() {
+    let highScoreName = hallInput.value.trim();
+    if (highScoreName) {
+        const highScores = getHighScores();
+        highScores.push({ name: highScoreName, score: score });
+        highScores.sort((a, b) => b.score - a.score);
+        highScores.splice(5);   
+        localStorage.setItem('highScores', JSON.stringify(highScores));
+        displayHighScores();
+    }
 
-//     inputBtn.style.display = 'none';
-//     hallInput.style.display = 'none';
-// }
+    inputBtn.style.display = 'none';
+    hallInput.style.display = 'none';
+}
 
-// function getHighScores() {
-//     const scores = localStorage.getItem('highScores');
-//     return scores ? JSON.parse(scores) : [];
-// }
+function getHighScores() {
+    const scores = localStorage.getItem('highScores');
+    return scores ? JSON.parse(scores) : [];
+}
 
-// function displayHighScores() {
-//     const highScores = getHighScores().slice(0, 5);  
-//     const highScoreElements = [highScore1, highScore2, highScore3, highScore4, highScore5];
-//     highScores.forEach((score, index) => {
-//         if (highScoreElements[index]) {
-//             highScoreElements[index].textContent = `${Object.values(score)[0]}: ${Object.values(score)[1]}`;
-//         }
-//     });
+function displayHighScores() {
+    const highScores = getHighScores().slice(0, 5);  
+    const highScoreElements = [highScore1, highScore2, highScore3, highScore4, highScore5];
+    highScores.forEach((score, index) => {
+        if (highScoreElements[index]) {
+            highScoreElements[index].textContent = `${Object.values(score)[0]}: ${Object.values(score)[1]}`;
+        }
+    });
 
-//     for (let i = highScores.length; i < highScoreElements.length; i++) {
-//         if (highScoreElements[i]) {
-//             highScoreElements[i].textContent = '';
-//         }
-//     }
-// }
+    for (let i = highScores.length; i < highScoreElements.length; i++) {
+        if (highScoreElements[i]) {
+            highScoreElements[i].textContent = '';
+        }
+    }
+}
 
-// function fame() {
-//     console.log('Hall of Fame');
-//     quizBox.style.display = 'none';
-//     startPage.style.display = 'none';
-//     highScoreElement.style.display = 'block'; 
-//     displayHighScores();
-// } 
+function fame() {
+    // console.log('Hall of Fame');
+    // quizBox.style.display = 'none';
+    // startPage.style.display = 'none';
+    // highScoreElement.style.display = 'block'; 
+    displayHighScores();
+} 
 
 
 function startTimer() {
@@ -224,14 +224,13 @@ function stopTimer() {
 } 
 
 
+function showInputValue2(e){
+        if (e.key === 'Enter') {
+            hallInput.style.display = 'none';
+            inputBtn.style.display = 'none';
+        }   
 
-// function showInputValue2(e){
-//         if (e.key === 'Enter') {
-//             hallInput.style.display = 'none';
-//             inputBtn.style.display = 'none';
-//         }   
-
-//     }
+    }
     
 
 // previously resetstate()
@@ -264,14 +263,17 @@ function removeAnswerBtns(){
 function showScore() {
     console.log('showscore');
     quizQuestions.style.display = 'none';
-    // inputBtn.style.display = 'block';
+    inputBtn.style.display = 'block';
+    hallInput.style.display = 'block';
     const totalScore = document.createElement('h1');
     totalScore.setAttribute('id', 'total-score');
     quizBox.appendChild(totalScore);
     totalScore.innerHTML = `You scored ${score} out of ${questions.length}!`;
+    highScoreElement.style.display = 'block';
+    inputBtn.addEventListener('click',saveHighScore);
     // if (!document.getElementById('hall-of-fame-btn')) {
     //     const hallOfFameBtn = document.createElement('button');
-    //     hallOfFameBtn.setAttribute('id', 'hall-of-fame-btn');  // Add an ID to the button
+    //     hallOfFameBtn.setAttribute('id', 'hall-of-fame-btn');  
     //     hallOfFameBtn.innerText = 'Hall of Fame';
     //     hallOfFameBtn.classList.add('btn');
     //     hallOfFameBtn.addEventListener('click', fame);
@@ -285,7 +287,7 @@ function showScore() {
 function handleNxtbtn() {
     console.log(currentQuestionIndex);
     stopTimer();
-
+    
     if (currentQuestionIndex < questions.length-1) {
         currentQuestionIndex++;
         console.log(currentQuestionIndex);
