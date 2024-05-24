@@ -31,11 +31,11 @@ let time1 = 10;
 
 startBtn.addEventListener('click', startQuiz);
 // hallInput.addEventListener('keydown', showInputValue2);
-// backButton.addEventListener('click',backbtn);
+backButton.addEventListener('click',backbtn);
 // playagainBtn.addEventListener('click',playAgain);
-// hallbtn.addEventListener('click', fame);
+hallbtn.addEventListener('click', fame);
 next.addEventListener('click', nextQ);
-// inputBtn.addEventListener('click', saveHighScore);
+inputBtn.addEventListener('click', saveHighScore);
 // musictxt.addEventListener('click', changeSrc);
 
 function startQuiz() {
@@ -94,52 +94,20 @@ function showQuestion(){
 
 }
 
-    // function checkCorrectAns(){
-    //     console.log('aaa')
-    //     console.log(currentQuestion.answers)
-    //     // currentQuestion.answers.forEach(function(currAns){
-    //     // })
 
-    //     Array.from(answerButtons.children).forEach(button => {
-    //         if(button.correct === 'true'){
-    //             console.log('right');
-
-    //         }else{
-    //             console.log('wrong')
-    //         }
-
-    //         // if (button.dataset.correct === 'true') {
-    //         //     button.classList.add('correct');
-    //         // }
-    //         // button.disabled = true;
-    //     });
-    
-    // }
-    
-
-    // currentQuestion.answers.forEach(answer => {
-    //     const button = document.createElement('button');
-    //     button.innerHTML = answer.text;
-    //     button.classList.add('btn');
-    //     answerButtons.appendChild(button);
-    //     if(answer.correct){
-    //         button.dataset.correct =answer.correct;
-    //         // clearTimeout(mytimeout);
-    //     }
-    // button.addEventListener('click',selectAnswer);
-    // });
-    // next.style.display = 'none';
-// }
-
-// function backbtn(){
-//     console.log('back');
-//     startPage.style.display = "block";
-//     inputBtn.style.display = 'none';
-//     hallInput.style.display = 'none';
-//     quizBox.style.display = "none";
-//     highScoreElement.style.display = 'none';
-//     playagainBtn.style.display = 'none';
-// }
+function backbtn(e){
+    score=0;
+    stopTimer();
+    startPage.style.display = "block";
+    inputBtn.style.display = 'none';
+    hallInput.style.display = 'none';
+    quizBox.style.display = "none";
+    highScoreElement.style.display = 'none';
+    playagainBtn.style.display = 'none';
+    if(e.key === startBtn){
+        startQuiz();
+    }
+}
 
 // function playAgain(){
 //     console.log('back');
@@ -190,9 +158,10 @@ function displayHighScores() {
 function fame() {
     // console.log('Hall of Fame');
     // quizBox.style.display = 'none';
-    // startPage.style.display = 'none';
-    // highScoreElement.style.display = 'block'; 
+    startPage.style.display = 'none';
+    highScoreElement.style.display = 'block'; 
     displayHighScores();
+    saveHighScore();
 } 
 
 
@@ -224,13 +193,13 @@ function stopTimer() {
 } 
 
 
-function showInputValue2(e){
-        if (e.key === 'Enter') {
-            hallInput.style.display = 'none';
-            inputBtn.style.display = 'none';
-        }   
+// function showInputValue2(e){
+//         if (e.key === 'Enter') {
+//             hallInput.style.display = 'none';
+//             inputBtn.style.display = 'none';
+//         }   
 
-    }
+//     }
     
 
 // previously resetstate()
@@ -262,6 +231,8 @@ function removeAnswerBtns(){
      
 function showScore() {
     console.log('showscore');
+    timer.style.display = 'none';
+    presentScore.innerHTML = 'Game Over';
     quizQuestions.style.display = 'none';
     inputBtn.style.display = 'block';
     hallInput.style.display = 'block';
@@ -297,24 +268,15 @@ function handleNxtbtn() {
 
     } else {
         showScore();
-    //     hallInput.style.display = 'block';
-    //     timer.style.display= 'none';
-    //     clearTimeout(mytimeout);
-    //     console.log('quiz end')
     }
 }
 
 function nextQ(){
     startTimer();
     timer.innerHTML = '';
-    // presentScore.innerHTML = score;
     if (currentQuestionIndex <= questions.length-1) {
         handleNxtbtn();
     } else {
-        // startQuiz();
-        // timer.style.display='block';
-        // countdown = 10;
-        // time1();
     
     }
 }
