@@ -41,8 +41,8 @@ inputBtn.addEventListener('click', saveHighScore);
 function startQuiz() {
     currentQuestionIndex =0 ;
     startPage.style.display = "none";
-    quizBox.style.display = "block";
-    quizQuestions.style.display = 'block';
+    quizBox.style.display = "flex";
+    quizQuestions.style.display = 'flex';
     startTimer();
     questionnum.innerHTML = `Question ${currentQuestionIndex + 1} of 5 shuffled from 10`;
     selectQuestions();
@@ -77,7 +77,7 @@ function showQuestion(){
                 if (button.getAttribute('correct') === 'true') {
                     button.classList.add('correct'); 
                 button.disabled = true;
-                next.style.display = 'block'
+                next.style.display = 'flex'
                 }
             })  
             stopTimer();
@@ -98,7 +98,7 @@ function showQuestion(){
 function backbtn(e){
     score=0;
     stopTimer();
-    startPage.style.display = "block";
+    startPage.style.display = "flex";
     inputBtn.style.display = 'none';
     hallInput.style.display = 'none';
     quizBox.style.display = "none";
@@ -234,8 +234,8 @@ function showScore() {
     timer.style.display = 'none';
     presentScore.innerHTML = 'Game Over';
     quizQuestions.style.display = 'none';
-    inputBtn.style.display = 'block';
-    hallInput.style.display = 'block';
+    inputBtn.style.display = 'flex';
+    hallInput.style.display = 'flex';
     const totalScore = document.createElement('h1');
     totalScore.setAttribute('id', 'total-score');
     quizBox.appendChild(totalScore);
