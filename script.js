@@ -1,11 +1,14 @@
 import questions from "./questions.js";
 const startBtn = document.getElementById('start');
+const boxWrap = document.getElementById('boxwrap');
+
 const answerButtons = document.getElementById('answer-buttons');
 const quizQuestions = document.querySelector('.quizquestions');
 const questionTxt = document.getElementById('question-text');
 const questionnum = document.querySelector('.question-num')
 const next = document.getElementById('next');
 const presentScore= document.getElementById('presentScore');
+const presentScoreMain= document.getElementById('presemtscore-main');
 const timer = document.querySelector('.timer');
 const musictxt = document.querySelector('#musictxt');
 const music = document.querySelector('.music');
@@ -33,7 +36,7 @@ startBtn.addEventListener('click', startQuiz);
 // hallInput.addEventListener('keydown', showInputValue2);
 backButton.addEventListener('click',backbtn);
 // playagainBtn.addEventListener('click',playAgain);
-hallbtn.addEventListener('click', fame);
+hallbtn.addEventListener('click', hallFame);
 next.addEventListener('click', nextQ);
 inputBtn.addEventListener('click', saveHighScore);
 // musictxt.addEventListener('click', changeSrc);
@@ -97,7 +100,6 @@ function showQuestion(){
 
 function backbtn(e){
     score=0;
-    stopTimer();
     startPage.style.display = "flex";
     inputBtn.style.display = 'none';
     hallInput.style.display = 'none';
@@ -105,6 +107,7 @@ function backbtn(e){
     highScoreElement.style.display = 'none';
     playagainBtn.style.display = 'none';
     if(e.key === startBtn){
+        console.log('yhhh')
         startQuiz();
     }
 }
@@ -155,11 +158,18 @@ function displayHighScores() {
     }
 }
 
-function fame() {
+function hallFame() {
     // console.log('Hall of Fame');
-    // quizBox.style.display = 'none';
+    quizBox.style.display = 'flex';
+    boxWrap.style.display = 'none'
+    // quizQuestions.style.display = 'flex';
     startPage.style.display = 'none';
-    highScoreElement.style.display = 'block'; 
+    // questionTxt.style.display = 'none';
+    // timer.style.display = 'none';
+    // questionnum.style.display = 'none';
+    // presentScore.style.display = 'none';
+    // presentScoreMain.style.display = 'none';
+    highScoreElement.style.display = 'block';
     displayHighScores();
     saveHighScore();
 } 
@@ -240,6 +250,7 @@ function showScore() {
     totalScore.setAttribute('id', 'total-score');
     quizBox.appendChild(totalScore);
     totalScore.innerHTML = `You scored ${score} out of ${questions.length}!`;
+    displayHighScores();
     highScoreElement.style.display = 'block';
     inputBtn.addEventListener('click',saveHighScore);
     // if (!document.getElementById('hall-of-fame-btn')) {
@@ -267,6 +278,7 @@ function handleNxtbtn() {
         startTimer();
 
     } else {
+        stopTimer();
         showScore();
     }
 }
