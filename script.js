@@ -33,9 +33,7 @@ let myInterval1;
 let time1 = 10;
 
 startBtn.addEventListener('click', startQuiz);
-// hallInput.addEventListener('keydown', showInputValue2);
 backButton.addEventListener('click',backbtn);
-// playagainBtn.addEventListener('click',playAgain);
 hallbtn.addEventListener('click', hallFame);
 next.addEventListener('click', nextQ);
 inputBtn.addEventListener('click', saveHighScore);
@@ -61,12 +59,10 @@ function selectQuestions(){
 
 function showQuestion(){ 
     console.log(score + 'score')
-    // next.style.display = ''
     let currentQuestion = questions[currentQuestionIndex];
     removeAnswerBtns();
     questionnum.innerHTML = `Question ${currentQuestionIndex+1} of 5 shuffled from 10`;
-        presentScore.innerHTML = score;
-
+    presentScore.innerHTML = score;
     questionTxt.innerHTML = currentQuestion.question;
     currentQuestion.answers.forEach(function(currentAnswer){
         console.log(currentAnswer.text);
@@ -94,33 +90,17 @@ function showQuestion(){
             }
         })
     } )
-
 }
 
-
-function backbtn(e){
-    score=0;
+function backbtn(){
     startPage.style.display = "flex";
     inputBtn.style.display = 'none';
     hallInput.style.display = 'none';
     quizBox.style.display = "none";
     highScoreElement.style.display = 'none';
     playagainBtn.style.display = 'none';
-    if(e.key === startBtn){
-        console.log('yhhh')
-        startQuiz();
-    }
+    startBtn.addEventListener('click',startQuiz);
 }
-
-// function playAgain(){
-//     console.log('back');
-//     hallInput.style.display = 'none';
-//     inputBtn.style.display = 'none';
-//     highScoreElement.style.display = 'none';
-//     startPage.style.display = "block";
-//     quizBox.style.display = "none"; 
-//     playagainBtn.style.display = 'none';
-// }
 
 function saveHighScore() {
     let highScoreName = hallInput.value.trim();
@@ -159,21 +139,13 @@ function displayHighScores() {
 }
 
 function hallFame() {
-    // console.log('Hall of Fame');
     quizBox.style.display = 'flex';
     boxWrap.style.display = 'none'
-    // quizQuestions.style.display = 'flex';
     startPage.style.display = 'none';
-    // questionTxt.style.display = 'none';
-    // timer.style.display = 'none';
-    // questionnum.style.display = 'none';
-    // presentScore.style.display = 'none';
-    // presentScoreMain.style.display = 'none';
     highScoreElement.style.display = 'block';
     displayHighScores();
     saveHighScore();
 } 
-
 
 function startTimer() {
     time1=10;
@@ -202,42 +174,10 @@ function stopTimer() {
     clearInterval(myInterval1);
 } 
 
-
-// function showInputValue2(e){
-//         if (e.key === 'Enter') {
-//             hallInput.style.display = 'none';
-//             inputBtn.style.display = 'none';
-//         }   
-
-//     }
-    
-
-// previously resetstate()
 function removeAnswerBtns(){ 
-        Array.from(answerButtons.children).forEach(child => answerButtons.removeChild(child));
-    
+        Array.from(answerButtons.children).forEach(child => answerButtons.removeChild(child));  
     }
 
-// function selectAnswer(e){
-//     const selectedBtn = e.target;
-//     const isCorrect = selectedBtn.dataset.correct === 'true';
-//     if(isCorrect){
-//         selectedBtn.classList.add('correct');
-//         score++;
-//     }else{
-//         selectedBtn.classList.add('incorrect');
-//     }
-
-//     Array.from(answerButtons.children).forEach(button => {
-//         if(button.dataset.correct === 'true'){
-//             button.classList.add('correct');
-//         }
-//         button.disabled = true;
-
-//     }); 
-//     timer.style.display ='none';
-//     next.style.display = 'block';
-// }
      
 function showScore() {
     console.log('showscore');
@@ -253,17 +193,6 @@ function showScore() {
     displayHighScores();
     highScoreElement.style.display = 'block';
     inputBtn.addEventListener('click',saveHighScore);
-    // if (!document.getElementById('hall-of-fame-btn')) {
-    //     const hallOfFameBtn = document.createElement('button');
-    //     hallOfFameBtn.setAttribute('id', 'hall-of-fame-btn');  
-    //     hallOfFameBtn.innerText = 'Hall of Fame';
-    //     hallOfFameBtn.classList.add('btn');
-    //     hallOfFameBtn.addEventListener('click', fame);
-    //     quizBox.appendChild(hallOfFameBtn);
-    // }
-    // playagainBtn.style.display = 'block';
-    // next.style.display = 'none';
-    // quizBox.appendChild(next);
 }
 
 function handleNxtbtn() {
