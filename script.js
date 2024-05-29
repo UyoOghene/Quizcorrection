@@ -31,6 +31,7 @@ let score = 0;
 let currentQuestionIndex = 0;
 let myInterval1;
 let time1 = 10;
+let totalScore;
 
 startBtn.addEventListener('click', startQuiz);
 backButton.addEventListener('click',backbtn);
@@ -43,9 +44,7 @@ function startQuiz() {
     currentQuestionIndex =0 ;
     startPage.style.display = "none";
     quizBox.style.display = "flex";
-    quizQuestions.style.display = 'flex';
     startTimer();
-    questionnum.innerHTML = `Question ${currentQuestionIndex + 1} of 5 shuffled from 10`;
     selectQuestions();
     showQuestion();
 }
@@ -65,7 +64,6 @@ function showQuestion(){
     presentScore.innerHTML = score;
     questionTxt.innerHTML = currentQuestion.question;
     currentQuestion.answers.forEach(function(currentAnswer){
-        console.log(currentAnswer.text);
         const ansbtn = document.createElement('button');
         ansbtn.setAttribute('correct', currentAnswer.correct);
         ansbtn.innerText = currentAnswer.text;
@@ -94,12 +92,13 @@ function showQuestion(){
 
 function backbtn(){
     startPage.style.display = "flex";
+    timer.style.display = 'block';
+    boxWrap.style.display = 'block';
     inputBtn.style.display = 'none';
     hallInput.style.display = 'none';
     quizBox.style.display = "none";
     highScoreElement.style.display = 'none';
-    playagainBtn.style.display = 'none';
-    startBtn.addEventListener('click',startQuiz);
+    quizQuestions.style.display = 'flex';
 }
 
 function saveHighScore() {
@@ -217,9 +216,7 @@ function nextQ(){
     timer.innerHTML = '';
     if (currentQuestionIndex <= questions.length-1) {
         handleNxtbtn();
-    } else {
-    
-    }
+    } 
 }
 
 // function changeSrc() {
@@ -238,4 +235,3 @@ function nextQ(){
 //         musicSrc.play();
 //     }
 // }
-
