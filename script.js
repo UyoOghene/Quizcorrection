@@ -1,7 +1,6 @@
 import questions from "./questions.js";
 const startBtn = document.getElementById('start');
 const boxWrap = document.getElementById('boxwrap');
-
 const answerButtons = document.getElementById('answer-buttons');
 const quizQuestions = document.querySelector('.quizquestions');
 const questionTxt = document.getElementById('question-text');
@@ -25,13 +24,11 @@ const highScore4 = document.querySelector('#high4');
 const highScore5 = document.querySelector('#high5');
 const hallInput = document.querySelector('#hallinput');
 const inputBtn = document.querySelector('#inputBtn');
-const playagainBtn = document.querySelector('#playagainbtn');
 
 let score = 0;
 let currentQuestionIndex = 0;
 let myInterval1;
 let time1 = 10;
-let totalScore;
 
 startBtn.addEventListener('click', startQuiz);
 backButton.addEventListener('click',backbtn);
@@ -41,7 +38,8 @@ inputBtn.addEventListener('click', saveHighScore);
 // musictxt.addEventListener('click', changeSrc);
 
 function startQuiz() {
-    currentQuestionIndex =0 ;
+    score = 0;
+    currentQuestionIndex =0;
     startPage.style.display = "none";
     quizBox.style.display = "flex";
     startTimer();
@@ -99,6 +97,10 @@ function backbtn(){
     quizBox.style.display = "none";
     highScoreElement.style.display = 'none';
     quizQuestions.style.display = 'flex';
+    const totalScore = document.getElementById('total-score');
+    if (totalScore) {
+        totalScore.remove();
+    }
 }
 
 function saveHighScore() {
