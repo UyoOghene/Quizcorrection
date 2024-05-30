@@ -57,7 +57,7 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 60rem;
+    width: 40rem;
     height: 30rem;  
 }
 
@@ -69,10 +69,10 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 60rem;
+    width: 40rem;
     height: 30rem;
 }
-.boxwrap{
+/* .boxwrap{
     background-color:black ;
     border: solid blueviolet;
     border-radius: 10px;
@@ -82,12 +82,11 @@ body{
     justify-content: center;
     width: 60rem;
     height: 30rem;
-}
+} */
 
 .quizbox h1{
     color: pink;
 }
-
 
 button{
     border-radius: 20px;
@@ -97,7 +96,7 @@ button{
     margin: 5px;
     cursor: pointer;
     font-weight: bold;
-    font-size: large;
+    font-size: medium;
     
 }
 button:hover:not([disabled]) {
@@ -179,7 +178,7 @@ h2{
 
 
 /* Tablets and under */
-/* @media (max-width:768px) {
+@media (max-width:768px) {
     .container{
         background-color:#11153a ;
         border-radius: 10px;
@@ -193,10 +192,17 @@ h2{
     .quizbox{
         width: 18rem;
         height: 20rem;
-        display: flex;
+        display: none;
         flex-direction: column ;
         justify-content: center;
     
+    }
+    .boxwrap{
+        width: 18rem;
+        height: 20rem;
+        display: none;
+        flex-direction: column ;
+        justify-content: center;
     }
 
     #start-page{
@@ -216,6 +222,7 @@ h2{
         padding: 3px;
         border: 3px solid pink ;
         margin: 3px;
+        font-size: small;
     }
     h1{
         font-size: 15px;
@@ -227,7 +234,9 @@ h2{
         line-height: 1em;
     
     }
-    
+    .music{
+        margin-top: 20px;
+    }
     
     #musictxt{
         color: black;
@@ -238,4 +247,4 @@ h2{
     }
     
       
-} */
+}

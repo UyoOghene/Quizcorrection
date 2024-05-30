@@ -39,7 +39,7 @@ inputBtn.addEventListener('click', saveHighScore);
 
 function startQuiz() {
     score = 0;
-    currentQuestionIndex =0;
+    currentQuestionIndex = 0;
     startPage.style.display = "none";
     quizBox.style.display = "flex";
     startTimer();
@@ -82,7 +82,6 @@ function showQuestion(){
                 score ++;
             }else{
                 ansbtn.classList.add('incorrect');
-
             }
         })
     } )
@@ -113,7 +112,6 @@ function saveHighScore() {
         localStorage.setItem('highScores', JSON.stringify(highScores));
         displayHighScores();
     }
-
     inputBtn.style.display = 'none';
     hallInput.style.display = 'none';
 }
