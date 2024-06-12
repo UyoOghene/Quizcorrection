@@ -35,7 +35,6 @@ backButton.addEventListener('click',backbtn);
 hallbtn.addEventListener('click', hallFame);
 next.addEventListener('click', nextQ);
 inputBtn.addEventListener('click', saveHighScore);
-// musictxt.addEventListener('click', changeSrc);
 
 function startQuiz() {
     score = 0;
